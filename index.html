@@ -7,31 +7,28 @@
   <!-- Material Icons CDN -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
+    /* Nouvelle palette et layout */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --primary: #ff6b6b;
-      --primary-light: #ff8e8e;
-      --primary-dark: #ff4757;
-      --bg-dark: #121212;
-      --bg-light: #f8f9fa;
-      --surface-dark: #1e1e1e;
+      --primary: #4f8cff;
+      --primary-light: #7abaff;
+      --primary-dark: #2c5ecf;
+      --bg-dark: #181c24;
+      --bg-light: #f4f7fa;
+      --surface-dark: #23283b;
       --surface-light: #ffffff;
-      --text-dark: #2d3436;
-      --text-light: #f8f9fa;
-      --text-secondary: #adb5bd;
-      --radius: 16px;
-      --radius-sm: 8px;
-      --radius-lg: 24px;
-      --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.2);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --motion-in: cubic-bezier(0.4, 0, 0.2, 1);
-      --glass-bg: rgba(30, 30, 30, 0.7);
-      --glass-bg-light: rgba(255, 255, 255, 0.7);
-      --glass-blur: 12px;
+      --text-dark: #23283b;
+      --text-light: #f4f7fa;
+      --text-secondary: #7a8ca5;
+      --radius: 18px;
+      --radius-sm: 10px;
+      --radius-lg: 32px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.18);
+      --transition: all 0.25s cubic-bezier(.4,0,.2,1);
+      --sidebar-width: 260px;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -39,14 +36,14 @@
     }
 
     body {
-      margin: 0;
       background: var(--bg-dark);
       color: var(--text-light);
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       transition: var(--transition);
-      scroll-behavior: smooth;
-      line-height: 1.6;
+      display: flex;
+      flex-direction: row;
+      overflow-x: hidden;
     }
 
     body.light-mode {
@@ -54,48 +51,125 @@
       color: var(--text-dark);
     }
 
-    /* Header styles */
-    header {
-      text-align: center;
+    /* Sidebar */
+    #sidebar {
+      width: var(--sidebar-width);
+      background: var(--surface-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem 1rem 1rem;
-      position: relative;
+      box-shadow: var(--shadow);
+      min-height: 100vh;
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    body.light-mode #sidebar {
+      background: var(--surface-light);
+      color: var(--text-dark);
+    }
+
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin: 2rem 0 2rem;
+      width: 100%;
+    }
+
+    .sidebar-btn {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-btn.active, .sidebar-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    #toggle-theme {
+      margin-top: auto;
+      margin-bottom: 1rem;
+      background: var(--primary-light);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 2.7rem;
+      height: 2.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    #toggle-theme:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Main content */
+    #main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 2.5rem 2rem 6rem 2rem;
+      min-height: 100vh;
+      transition: var(--transition);
       max-width: 1200px;
-      margin: 0 auto;
+      /* Centrage horizontal et vertical */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin-right: auto;
+      margin-left: var(--sidebar-width);
     }
 
     .app-title {
       font-weight: 700;
-      font-size: 2.5rem;
-      margin: 0.5rem 0;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .app-title .material-icons {
       font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      display: flex;
+      gap: 0.5rem;
     }
 
     .app-subtitle {
       color: var(--text-secondary);
       font-weight: 400;
       font-size: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     /* Search bar */
     #search-bar {
       display: flex;
-      max-width: 600px;
-      margin: 1.5rem auto;
       background: var(--surface-dark);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: var(--transition);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: 0;
     }
 
     body.light-mode #search-bar {
@@ -134,34 +208,6 @@
       background: linear-gradient(135deg, var(--primary-light), var(--primary));
     }
 
-    /* Theme toggle */
-    #toggle-theme {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      background: var(--surface-dark);
-      color: var(--primary);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
-      z-index: 1000;
-      transition: var(--transition);
-    }
-
-    body.light-mode #toggle-theme {
-      background: var(--surface-light);
-    }
-
-    #toggle-theme:hover {
-      transform: scale(1.1);
-    }
-
     /* Loader */
     #loader {
       display: none;
@@ -184,9 +230,8 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 0.5rem;
+      margin-top: 1rem;
     }
 
     .result {
@@ -197,6 +242,9 @@
       transition: var(--transition);
       box-shadow: var(--shadow);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
     }
 
     body.light-mode .result {
@@ -204,7 +252,7 @@
     }
 
     .result:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px) scale(1.03);
       box-shadow: var(--shadow-lg);
     }
 
@@ -213,10 +261,15 @@
       height: 160px;
       object-fit: cover;
       display: block;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
     .result-info {
       padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .result-title {
@@ -237,46 +290,54 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      background: rgba(0, 0, 0, 0.7);
+      background: var(--primary);
       color: white;
-      padding: 0.2rem 0.5rem;
+      padding: 0.2rem 0.7rem;
       border-radius: var(--radius-sm);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
     /* Player bar */
     #player-bar {
       position: fixed;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
+      left: var(--sidebar-width);
+      right: 0;
+      bottom: 0;
       background: var(--surface-dark);
-      border-radius: var(--radius);
-      padding: 1rem;
-      display: none;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 1.2rem 2rem;
+      display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       box-shadow: var(--shadow-lg);
       z-index: 999;
-      max-width: 1200px;
+      max-width: calc(100vw - var(--sidebar-width));
       margin: 0 auto;
       transition: var(--transition);
+      min-height: 90px;
     }
 
     body.light-mode #player-bar {
       background: var(--surface-light);
     }
 
-    #player-bar.expanded {
-      bottom: 1rem;
-      top: 1rem;
-      flex-direction: column;
-      padding: 2rem;
+    #youtube-player {
+      width: 120px;
+      height: 68px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      margin-right: 1rem;
+      background: #000;
     }
 
     #player-info {
       flex: 1;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
     }
 
     #player-title {
@@ -285,19 +346,21 @@
       overflow: hidden;
       text-overflow: ellipsis;
       color: var(--primary);
+      font-size: 1.1rem;
     }
 
     #player-controls {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      margin-top: 0.3rem;
     }
 
     .control-button {
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 50%;
-      background: rgba(255, 107, 107, 0.1);
+      background: rgba(79,140,255,0.12);
       color: var(--primary);
       border: none;
       cursor: pointer;
@@ -305,6 +368,7 @@
       align-items: center;
       justify-content: center;
       transition: var(--transition);
+      font-size: 1.3rem;
     }
 
     .control-button:hover {
@@ -313,38 +377,22 @@
       transform: scale(1.1);
     }
 
-    #player-bar.expanded .control-button {
-      width: 3.5rem;
-      height: 3.5rem;
-      font-size: 1.5rem;
-    }
-
-    #player-bar.expanded #player-title {
-      font-size: 1.5rem;
-      text-align: center;
-      margin: 1rem 0;
-    }
-
-    #player-bar.expanded #player-controls {
-      margin-top: 1rem;
-    }
-
-    #toggle-collapse {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
-
-    #toggle-collapse:hover {
+    #like-btn {
+      margin-left: 1rem;
+      background: rgba(255, 107, 107, 0.12);
       color: var(--primary);
     }
 
-    /* History and likes sections */
+    #like-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    #toggle-collapse {
+      display: none;
+    }
+
+    /* Sections */
     .section-title {
       font-size: 1.2rem;
       margin: 1.5rem 0 1rem;
@@ -363,10 +411,10 @@
 
     .history-item, .like-item {
       padding: 0.5rem 1rem;
-      background: rgba(255, 107, 107, 0.1);
+      background: rgba(79,140,255,0.10);
       border-radius: var(--radius-sm);
       color: var(--primary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: var(--transition);
     }
@@ -394,99 +442,136 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .app-title {
-        font-size: 2rem;
+    @media (max-width: 900px) {
+      #sidebar {
+        width: 70px;
+        padding: 1rem 0.2rem;
       }
-      
-      #results {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      #main-content {
+        margin-left: 70px;
+        padding: 1.2rem 0.5rem 6rem 0.5rem;
+        /* Centrage sur petits écrans */
+        align-items: center;
+        justify-content: center;
       }
-      
-      #player-bar.expanded {
-        padding: 1rem;
+      #player-bar {
+        left: 70px;
+        max-width: calc(100vw - 70px);
+        padding: 1rem 0.5rem;
+      }
+      .sidebar-logo {
+        font-size: 1.3rem;
+      }
+      .sidebar-btn span {
+        display: none;
       }
     }
 
-    @media (max-width: 480px) {
-      #search-bar {
-        flex-direction: column;
+    @media (max-width: 600px) {
+      #sidebar {
+        position: fixed;
+        width: 100vw;
+        height: 60px;
+        min-height: 0;
+        flex-direction: row;
+        bottom: 0; top: auto; left: 0; right: 0;
+        z-index: 1001;
+        box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
       }
-      
-      #search-button {
-        padding: 0.75rem;
+      #main-content {
+        margin-left: 0;
+        margin-bottom: 60px;
+        padding-bottom: 7rem;
+        /* Centrage sur très petits écrans */
+        align-items: center;
+        justify-content: center;
       }
-      
-      #results {
-        grid-template-columns: 1fr;
+      #player-bar {
+        left: 0;
+        max-width: 100vw;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+      .sidebar-logo {
+        display: none;
+      }
+      .sidebar-menu {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin: 0;
+      }
+      #toggle-theme {
+        margin: 0 0 0 0.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <button id="toggle-theme" title="Switch theme">
-    <span class="material-icons" id="theme-icon">dark_mode</span>
-  </button>
-  
-  <header>
-    <h1 class="app-title">
-      <span class="material-icons">graphic_eq</span>
-      DockyMusic
-    </h1>
-    <p class="app-subtitle">Discover and play your favorite music</p>
-    
-    <div id="search-bar">
-      <input id="search-input" type="text" placeholder="Search for songs, artists..." autocomplete="off" />
-      <button id="search-button">
-        <span class="material-icons">search</span>
-      </button>
+  <!-- Sidebar navigation -->
+  <nav id="sidebar">
+    <div class="sidebar-menu">
+      <button class="sidebar-btn active" id="nav-search"><span class="material-icons">search</span>Recherche</button>
+      <button class="sidebar-btn" id="nav-history"><span class="material-icons">history</span>Historique</button>
+      <button class="sidebar-btn" id="nav-likes"><span class="material-icons">favorite</span>Likes</button>
     </div>
-    
-    <div id="history-section" style="display: none;">
-      <h3 class="section-title"><span class="material-icons">history</span>Recently Played</h3>
+    <button id="toggle-theme" title="Switch theme">
+      <span class="material-icons" id="theme-icon">dark_mode</span>
+    </button>
+  </nav>
+  <!-- Main content -->
+  <div id="main-content">
+    <header>
+      <h1 class="app-title">
+        <span class="material-icons">graphic_eq</span>
+        DockyMusic
+      </h1>
+      <p class="app-subtitle">Découvrez et écoutez votre musique préférée</p>
+    </header>
+    <div id="search-view">
+      <div id="search-bar">
+        <input id="search-input" type="text" placeholder="Rechercher un titre, artiste..." autocomplete="off" />
+        <button id="search-button">
+          <span class="material-icons">search</span>
+        </button>
+      </div>
+      <div id="loader">
+        <span class="material-icons spin">autorenew</span>
+        <p>Chargement...</p>
+      </div>
+      <main id="results"></main>
+    </div>
+    <div id="history-section" style="display:none;">
+      <h3 class="section-title"><span class="material-icons">history</span>Historique d'écoute</h3>
       <div id="history-list"></div>
     </div>
-    
-    <div id="likes-section" style="display: none;">
-      <h3 class="section-title"><span class="material-icons">favorite</span>Your Likes</h3>
+    <div id="likes-section" style="display:none;">
+      <h3 class="section-title"><span class="material-icons">favorite</span>Vos favoris</h3>
       <div id="likes-list"></div>
     </div>
-  </header>
-
-  <div id="loader">
-    <span class="material-icons spin">autorenew</span>
-    <p>Loading music...</p>
   </div>
-  
-  <main id="results"></main>
-
-  <section id="player-bar">
+  <!-- Player bar -->
+  <section id="player-bar" style="display:none;">
     <iframe id="youtube-player" allow="autoplay" src="" frameborder="0" allowfullscreen></iframe>
     <div id="player-info">
       <div id="player-title"></div>
       <div id="player-controls">
-        <button class="control-button" id="prev" title="Previous">
+        <button class="control-button" id="prev" title="Précédent">
           <span class="material-icons">skip_previous</span>
         </button>
-        <button class="control-button" id="play" title="Play">
+        <button class="control-button" id="play" title="Lecture">
           <span class="material-icons">play_arrow</span>
         </button>
         <button class="control-button" id="pause" title="Pause">
           <span class="material-icons">pause</span>
         </button>
-        <button class="control-button" id="next" title="Next">
+        <button class="control-button" id="next" title="Suivant">
           <span class="material-icons">skip_next</span>
         </button>
-        <button class="control-button" id="like-btn" title="Like">
+        <button class="control-button" id="like-btn" title="Favori">
           <span class="material-icons" id="like-icon">favorite_border</span>
         </button>
       </div>
     </div>
-    <button id="toggle-collapse">
-      <span class="material-icons">expand_less</span>
-    </button>
   </section>
-
   <script>
     // DOM Elements
     const input = document.getElementById('search-input');
@@ -495,7 +580,6 @@
     const playerBar = document.getElementById('player-bar');
     const iframe = document.getElementById('youtube-player');
     const playerTitle = document.getElementById('player-title');
-    const toggleCollapse = document.getElementById('toggle-collapse');
     const loader = document.getElementById('loader');
     const toggleTheme = document.getElementById('toggle-theme');
     const themeIcon = document.getElementById('theme-icon');
@@ -640,11 +724,6 @@
       document.body.style.overflow = 'hidden';
     });
 
-    toggleCollapse.addEventListener('click', () => {
-      playerBar.classList.remove('expanded');
-      document.body.style.overflow = '';
-    });
-
     // History management
     function getHistory() {
       return JSON.parse(localStorage.getItem('gm_history') || '[]');
@@ -761,6 +840,34 @@
 
     likeBtn.addEventListener('click', toggleLike);
 
+    // Ajout navigation sidebar
+    const navSearch = document.getElementById('nav-search');
+    const navHistory = document.getElementById('nav-history');
+    const navLikes = document.getElementById('nav-likes');
+    const searchView = document.getElementById('search-view');
+
+    function showView(view) {
+      navSearch.classList.remove('active');
+      navHistory.classList.remove('active');
+      navLikes.classList.remove('active');
+      searchView.style.display = 'none';
+      historySection.style.display = 'none';
+      likesSection.style.display = 'none';
+      if (view === 'search') {
+        navSearch.classList.add('active');
+        searchView.style.display = 'block';
+      } else if (view === 'history') {
+        navHistory.classList.add('active');
+        historySection.style.display = 'block';
+      } else if (view === 'likes') {
+        navLikes.classList.add('active');
+        likesSection.style.display = 'block';
+      }
+    }
+    navSearch.addEventListener('click', () => showView('search'));
+    navHistory.addEventListener('click', () => { renderHistory(); showView('history'); });
+    navLikes.addEventListener('click', () => { renderLikes(); showView('likes'); });
+
     // Initialize app
     function init() {
       // Check for video ID in URL
@@ -799,8 +906,11 @@
     button.addEventListener('click', search);
     input.addEventListener('keydown', e => e.key === 'Enter' && search());
 
-    // Initialize on load
-    window.addEventListener('DOMContentLoaded', init);
+    // Initialisation vue par défaut
+    window.addEventListener('DOMContentLoaded', () => {
+      init();
+      showView('search');
+    });
   </script>
 </body>
 </html>
